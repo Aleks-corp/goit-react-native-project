@@ -7,17 +7,21 @@ import {
   Keyboard,
   Text,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 import { useRef, useState } from 'react';
 
-export default function LoginScreen() {
+export default function Registration() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passVisibility, setPassVisibility] = useState(false);
 
   const [inputFocus, setInputFocus] = useState('');
 
+  const refInputName = useRef();
   const refInputEmail = useRef();
   const refInputPass = useRef();
 
@@ -26,13 +30,46 @@ export default function LoginScreen() {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
-        keyboardVerticalOffset="-240"
+        keyboardVerticalOffset="-170"
       >
         <View style={styles.inner}>
-          <Text style={styles.header}>Увійти</Text>
+          <View style={styles.imageContainer}>
+            <AntDesign
+              style={styles.svgAdd}
+              name="pluscircleo"
+              size={24}
+              color="#FF6C00"
+            />
+          </View>
+
+          <Text style={styles.header}>Реєстрація</Text>
+          <TextInput
+            ref={refInputName}
+            style={
+              inputFocus === 'name'
+                ? [styles.input, styles.inputActive]
+                : styles.input
+            }
+            onChangeText={setName}
+            value={name}
+            placeholder="Логін"
+            onFocus={() => {
+              setInputFocus('name');
+            }}
+            onBlur={() => {
+              setInputFocus('');
+            }}
+            onSubmitEditing={() => {
+              refInputEmail.current.focus();
+            }}
+          />
           <TextInput
             ref={refInputEmail}
-            style={styles.input}
+            style={
+              inputFocus === 'email'
+                ? [styles.input, styles.inputActive]
+                : styles.input
+            }
             onChangeText={setEmail}
             value={email}
             autoComplete="email"
@@ -44,14 +81,17 @@ export default function LoginScreen() {
             onBlur={() => {
               setInputFocus('');
             }}
-            borderColor={inputFocus === 'email' ? '#FF6C00' : '#E8E8E8'}
             onSubmitEditing={() => {
               refInputPass.current.focus();
             }}
           />
           <TextInput
             ref={refInputPass}
-            style={styles.input}
+            style={
+              inputFocus === 'password'
+                ? [styles.input, styles.inputActive]
+                : styles.input
+            }
             onChangeText={setPassword}
             value={password}
             placeholder="Пароль"
@@ -62,7 +102,6 @@ export default function LoginScreen() {
             onBlur={() => {
               setInputFocus('');
             }}
-            borderColor={inputFocus === 'password' ? '#FF6C00' : '#E8E8E8'}
             secureTextEntry={!passVisibility}
           />
           <TouchableOpacity onPress={() => setPassVisibility(!passVisibility)}>
@@ -70,24 +109,26 @@ export default function LoginScreen() {
               {passVisibility ? 'Приховати' : 'Показати'}
             </Text>
           </TouchableOpacity>
+
           <TouchableOpacity
-            style={[
-              styles.btnContainer,
-              {
-                backgroundColor: !email || !password ? '#999999' : '#FF6C00',
-              },
-            ]}
-            disabled={!email || !password}
+            style={
+              !name || !email || !password
+                ? styles.btnContainer
+                : [styles.btnContainer, styles.btnContainerActive]
+            }
+            disabled={!name || !email || !password}
             onPress={() => {
+              refInputName.current.clear();
               refInputEmail.current.clear();
               refInputPass.current.clear();
+              setName('');
               setEmail('');
               setPassword('');
             }}
           >
-            <Text style={styles.btnText}>Увійти</Text>
+            <Text style={styles.btnText}>Зареєстуватися</Text>
           </TouchableOpacity>
-          <Text style={styles.linkText}>Немає акаунту? Зареєструватися</Text>
+          <Text style={styles.linkText}>Вже є акаунт? Увійти</Text>
         </View>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
@@ -102,8 +143,8 @@ const styles = StyleSheet.create({
   inner: {
     position: 'relative',
     paddingHorizontal: 16,
-    paddingBottom: 133,
-    paddingTop: 32,
+    paddingBottom: 66,
+    paddingTop: 92,
     borderRadius: 25,
     backgroundColor: '#ffffff',
   },
@@ -113,16 +154,38 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 33,
   },
+  imageContainer: {
+    position: 'absolute',
+    height: 120,
+    width: 120,
+    top: -60,
+    left: Dimensions.get('window').width / 2,
+    transform: [{ translateX: -60 }],
+    borderRadius: 16,
+    backgroundColor: '#F6F6F6',
+  },
+  svgAdd: {
+    position: 'absolute',
+    right: 0,
+    bottom: 20,
+    transform: [{ translateX: 12 }],
+  },
   input: {
+    position: 'relative',
     height: 50,
     borderWidth: 1,
     paddingHorizontal: 16,
+    borderRadius: 10,
     borderColor: '#E8E8E8',
     backgroundColor: '#F6F6F6',
     borderBottomWidth: 1,
     marginBottom: 16,
   },
-  inputPass: { position: 'relative' },
+  inputActive: {
+    borderColor: '#FF6C00',
+    backgroundColor: '#ffffff',
+  },
+
   btnPass: {
     position: 'absolute',
     top: -52,
@@ -136,7 +199,9 @@ const styles = StyleSheet.create({
     padding: 16,
     marginTop: 43,
     borderRadius: 100,
+    backgroundColor: '#999999',
   },
+  btnContainerActive: { backgroundColor: '#FF6C00' },
   btnText: {
     color: '#ffffff',
     textAlign: 'center',
