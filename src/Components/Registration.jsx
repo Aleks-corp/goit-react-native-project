@@ -10,6 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { EmailRegexp } from '../Constants/constants';
 
 import { useRef, useState } from 'react';
 
@@ -17,13 +18,37 @@ export default function Registration() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passVisibility, setPassVisibility] = useState(false);
 
+  const [passVisibility, setPassVisibility] = useState(false);
   const [inputFocus, setInputFocus] = useState('');
 
   const refInputName = useRef();
   const refInputEmail = useRef();
   const refInputPass = useRef();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (name.length < 3) {
+      alert('Логін повинен мати мін 3 символи');
+      return;
+    }
+    if (EmailRegexp.test(email) === false) {
+      alert('Електронна пошта не валідна');
+      return;
+    }
+    if (password.length < 8) {
+      alert('Пароль повинен мати мін 8 символів');
+      return;
+    }
+    const validForm = { name, email, password };
+    console.log('form:', validForm);
+    refInputName.current.clear();
+    refInputEmail.current.clear();
+    refInputPass.current.clear();
+    setName('');
+    setEmail('');
+    setPassword('');
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -50,8 +75,9 @@ export default function Registration() {
                 ? [styles.input, styles.inputActive]
                 : styles.input
             }
-            onChangeText={setName}
+            onChangeText={(e) => setName(e)}
             value={name}
+            autoCapitalize="words"
             placeholder="Логін"
             onFocus={() => {
               setInputFocus('name');
@@ -70,9 +96,10 @@ export default function Registration() {
                 ? [styles.input, styles.inputActive]
                 : styles.input
             }
-            onChangeText={setEmail}
+            onChangeText={(e) => setEmail(e)}
             value={email}
             autoComplete="email"
+            autoCapitalize="none"
             placeholder="Адреса електронної пошти"
             keyboardType="email-address"
             onFocus={() => {
@@ -92,8 +119,9 @@ export default function Registration() {
                 ? [styles.input, styles.inputActive]
                 : styles.input
             }
-            onChangeText={setPassword}
+            onChangeText={(e) => setPassword(e)}
             value={password}
+            autoComplete="password"
             placeholder="Пароль"
             keyboardType="default"
             onFocus={() => {
@@ -117,14 +145,7 @@ export default function Registration() {
                 : [styles.btnContainer, styles.btnContainerActive]
             }
             disabled={!name || !email || !password}
-            onPress={() => {
-              refInputName.current.clear();
-              refInputEmail.current.clear();
-              refInputPass.current.clear();
-              setName('');
-              setEmail('');
-              setPassword('');
-            }}
+            onPress={onSubmit}
           >
             <Text style={styles.btnText}>Зареєстуватися</Text>
           </TouchableOpacity>

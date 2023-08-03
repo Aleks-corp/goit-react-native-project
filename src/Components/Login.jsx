@@ -8,18 +8,36 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-
+import { EmailRegexp } from '../Constants/constants';
 import { useRef, useState } from 'react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passVisibility, setPassVisibility] = useState(false);
 
+  const [passVisibility, setPassVisibility] = useState(false);
   const [inputFocus, setInputFocus] = useState('');
 
   const refInputEmail = useRef();
   const refInputPass = useRef();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (EmailRegexp.test(email) === false) {
+      alert('Електронна пошта не валідна');
+      return;
+    }
+    if (password.length < 8) {
+      alert('Пароль повинен мати мін 8 символів');
+      return;
+    }
+    const validForm = { email, password };
+    console.log('form:', validForm);
+    refInputEmail.current.clear();
+    refInputPass.current.clear();
+    setEmail('');
+    setPassword('');
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -37,9 +55,10 @@ export default function Login() {
                 ? [styles.input, styles.inputActive]
                 : styles.input
             }
-            onChangeText={setEmail}
+            onChangeText={(e) => setEmail(e)}
             value={email}
             autoComplete="email"
+            autoCapitalize="none"
             placeholder="Адреса електронної пошти"
             keyboardType="email-address"
             onFocus={() => {
@@ -59,8 +78,9 @@ export default function Login() {
                 ? [styles.input, styles.inputActive]
                 : styles.input
             }
-            onChangeText={setPassword}
+            onChangeText={(e) => setPassword(e)}
             value={password}
+            autoComplete="password"
             placeholder="Пароль"
             keyboardType="default"
             onFocus={() => {
@@ -83,12 +103,7 @@ export default function Login() {
                 : [styles.btnContainer, styles.btnContainerActive]
             }
             disabled={!email || !password}
-            onPress={() => {
-              refInputEmail.current.clear();
-              refInputPass.current.clear();
-              setEmail('');
-              setPassword('');
-            }}
+            onPress={onSubmit}
           >
             <Text style={styles.btnText}>Увійти</Text>
           </TouchableOpacity>
