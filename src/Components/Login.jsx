@@ -26,7 +26,7 @@ export default function Login() {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
-        keyboardVerticalOffset="-240"
+        keyboardVerticalOffset="-260"
       >
         <View style={styles.inner}>
           <Text style={styles.header}>Увійти</Text>
@@ -107,9 +107,10 @@ const styles = StyleSheet.create({
   inner: {
     position: 'relative',
     paddingHorizontal: 16,
-    paddingBottom: 133,
+    paddingBottom: 145,
     paddingTop: 32,
-    borderRadius: 25,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
     backgroundColor: '#ffffff',
   },
   header: {

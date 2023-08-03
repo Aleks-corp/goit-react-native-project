@@ -1,5 +1,5 @@
 import { Dimensions, ImageBackground, StyleSheet, View } from 'react-native';
-import PostsScreen from './src/Screens/PostsScreen.js';
+import PostsScreen from './src/Screens/PostsScreen.jsx';
 import { useFonts } from 'expo-font';
 import BGImage from './assets/Image/PhotoBG.png';
 

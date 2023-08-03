@@ -30,7 +30,7 @@ export default function Registration() {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
-        keyboardVerticalOffset="-170"
+        keyboardVerticalOffset="-200"
       >
         <View style={styles.inner}>
           <View style={styles.imageContainer}>
@@ -143,9 +143,10 @@ const styles = StyleSheet.create({
   inner: {
     position: 'relative',
     paddingHorizontal: 16,
-    paddingBottom: 66,
+    paddingBottom: 79,
     paddingTop: 92,
-    borderRadius: 25,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
     backgroundColor: '#ffffff',
   },
   header: {

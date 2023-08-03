@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import RegistrationScreen from '../Screens/RegistrationScreen.js';
-import LoginScreen from '../Screens/LoginScreen.js';
+import RegistrationScreen from './RegistrationScreen.jsx';
+import LoginScreen from './LoginScreen.jsx';
 
 export default function PostsScreen() {
   return (
