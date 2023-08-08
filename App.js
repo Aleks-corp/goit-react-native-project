@@ -1,7 +1,9 @@
-import { Dimensions, ImageBackground, StyleSheet, View } from 'react-native';
-import PostsScreen from './src/Screens/PostsScreen.jsx';
+import 'react-native-gesture-handler';
+import React from 'react';
+
 import { useFonts } from 'expo-font';
-import BGImage from './assets/Image/PhotoBG.png';
+import { NavigationContainer } from '@react-navigation/native';
+import MainNavigation from './src/routes/MainNavigation.jsx';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -13,31 +15,8 @@ export default function App() {
     return null;
   }
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={BGImage}
-        style={Platform.OS === 'ios' ? styles.imageIOS : styles.image}
-      >
-        <PostsScreen />
-      </ImageBackground>
-    </View>
+    <NavigationContainer>
+      <MainNavigation />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-  },
-  imageIOS: {
-    height: '100%',
-  },
-  image: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-  },
-});
