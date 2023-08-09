@@ -2,7 +2,7 @@ const data = [
   {
     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
     title: "Tree",
-    img: "https://pixabay.com/get/gccce8844651fb169f67866cda3ef82e8147cedc1bfb8ed0b51734dab53cc5aba497a38b6f397768f9e60d356c0648c894e992b2d55097e64c719c7f39475ec59_1280.jpg",
+    img: "https://pixabay.com/get/gf40bea0d749e4f8afba8fd3f36b14760cf353138577e1a868e7dcf1b5c89295cdb70e5e73cf1a13d0338e57269822c7a0e5db30d5b5e7a28a42ba2dbb715fbb7_1280.jpg",
     comments: ["qwe", "wer", "ert", "rty", "tuu"],
     likes: 432,
     location: {
@@ -18,7 +18,7 @@ const data = [
   {
     id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
     title: "Forest",
-    img: "https://pixabay.com/get/g112278f3a47e27948c85050260b7b0f1dad88c25e4799adbf275f2d07e029826262b0fdce9bb82ce7773bd9646ffb6adb0db011ecd773b0158d9d97270af57e5_1280.jpg",
+    img: "https://pixabay.com/get/gf061c29c42d08eb67746a2391437acdf6afbc7a49591ba2b16243693789032bc72f26c2b0a941a9c6d9cc261e21a88e84d5f3aa74e9288469d980bb7c89d7fa4_1280.jpg",
     comments: [],
     likes: 0,
     location: {
@@ -34,7 +34,7 @@ const data = [
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d72",
     title: "Sky",
-    img: "https://pixabay.com/get/gecc794ef2ab858b9392a4837aaf5e6b134c1b218a1ba69b1d3c3a7bba1e4c680d0bc3ec01a8ff750dba33e472994366cc57ae0f379dde96ee308db9f824680ff_1280.jpg",
+    img: "https://pixabay.com/get/g62063598c4fa382b7a2d0818aaf0aad2ba8d75b1a292d3cf1efae01e0c9e4e7337ab7f6565f4ade69024a29adc1f26d14c584af21e87d97dc037adce604f43a2_1280.jpg",
     comments: ["qwe", "wer", "rty", "tuu"],
     likes: 3452,
     location: {

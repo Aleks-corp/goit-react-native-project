@@ -13,6 +13,7 @@ export default function BottomTabNavigation() {
   return (
     <Tabs.Navigator
       initialRouteName="Posts"
+      backBehavior="history"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, size }) => {
           const iconsProps = {
@@ -100,7 +101,7 @@ export default function BottomTabNavigation() {
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("PostsScreen");
+                navigation.goBack();
               }}
             >
               <Feather

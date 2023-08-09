@@ -26,7 +26,6 @@ export default function Registration() {
   const navigation = useNavigation();
 
   const onSubmit = (e) => {
-    e.preventDefault();
     if (name.length < 3) {
       alert("Логін повинен мати мін 3 символи");
       return;
@@ -41,10 +40,7 @@ export default function Registration() {
     }
     const validForm = { name, email, password };
     console.log("form:", validForm);
-    refInputName.current.clear();
-    refInputEmail.current.clear();
-    refInputPass.current.clear();
-    // navigation.navigate('Posts');
+    // navigation.navigate("Posts");
     navigation.reset({
       index: 0,
       routes: [{ name: "Posts" }],

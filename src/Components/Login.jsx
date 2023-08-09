@@ -31,9 +31,7 @@ export default function Login() {
     }
     const validForm = { email, password };
     console.log("form:", validForm);
-    refInputEmail.current.clear();
-    refInputPass.current.clear();
-    // navigation.navigate('Posts');
+    // navigation.navigate("Posts");
     navigation.reset({
       index: 0,
       routes: [{ name: "Posts" }],
