@@ -3,16 +3,16 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
-} from 'react-native';
+} from "react-native";
 
-export default function RegLoginContainer({
-  keyboardVerticalOffset,
+export default function TouchKeybordContainer({
+  keyboardVerticalOffset = 0,
   children,
 }) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
         keyboardVerticalOffset={keyboardVerticalOffset}
       >
@@ -24,6 +24,6 @@ export default function RegLoginContainer({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
 });

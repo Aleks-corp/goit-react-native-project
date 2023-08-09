@@ -21,7 +21,6 @@ export default function Login() {
   const navigation = useNavigation();
 
   const onSubmit = (e) => {
-    e.preventDefault();
     if (EmailRegexp.test(email) === false) {
       alert("Електронна пошта не валідна");
       return;

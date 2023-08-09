@@ -1,13 +1,13 @@
-import BGContainer from '../Components/BGContainer.jsx';
-import Registration from '../Components/Registration.jsx';
-import TochKeybordContainer from '../Components/TochKeybordContainer.jsx';
+import BGContainer from "../Components/BGContainer.jsx";
+import Registration from "../Components/Registration.jsx";
+import TouchKeybordContainer from "../Components/TouchKeybordContainer.jsx";
 
 export default function RegistrationScreen() {
   return (
     <BGContainer>
-      <TochKeybordContainer keyboardVerticalOffset="-200">
+      <TouchKeybordContainer keyboardVerticalOffset="-200">
         <Registration />
-      </TochKeybordContainer>
+      </TouchKeybordContainer>
     </BGContainer>
   );
 }

@@ -1,13 +1,13 @@
-import BGContainer from '../Components/BGContainer.jsx';
-import Login from '../Components/Login.jsx';
-import TochKeybordContainer from '../Components/TochKeybordContainer.jsx';
+import BGContainer from "../Components/BGContainer.jsx";
+import Login from "../Components/Login.jsx";
+import TouchKeybordContainer from "../Components/TouchKeybordContainer.jsx";
 
 export default function LoginScreen() {
   return (
     <BGContainer>
-      <TochKeybordContainer keyboardVerticalOffset="-260">
+      <TouchKeybordContainer keyboardVerticalOffset="-260">
         <Login />
-      </TochKeybordContainer>
+      </TouchKeybordContainer>
     </BGContainer>
   );
 }

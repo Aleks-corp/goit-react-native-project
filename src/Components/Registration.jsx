@@ -54,12 +54,14 @@ export default function Registration() {
   return (
     <View style={styles.inner}>
       <View style={styles.imageContainer}>
-        <AntDesign
-          style={styles.svgAdd}
-          name="pluscircleo"
-          size={24}
-          color="#FF6C00"
-        />
+        <TouchableOpacity
+          onPress={() => {
+            alert("Додаємо аватарку");
+          }}
+          style={styles.svgAddBtn}
+        >
+          <AntDesign name="pluscircleo" size={24} color="#FF6C00" />
+        </TouchableOpacity>
       </View>
 
       <Text style={styles.header}>Реєстрація</Text>
@@ -180,7 +182,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: "#F6F6F6",
   },
-  svgAdd: {
+  svgAddBtn: {
     position: "absolute",
     right: 0,
     bottom: 20,
