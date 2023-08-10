@@ -47,6 +47,7 @@ export default function BottomTabNavigation() {
             </View>
           );
         },
+        unmountOnBlur: true,
         tabBarShowLabel: false,
         tabBarStyle:
           Platform.OS === "ios"
