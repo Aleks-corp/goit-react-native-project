@@ -21,6 +21,7 @@ export default function PostsUserComponent({ user }) {
 
 const styles = StyleSheet.create({
   userContainer: {
+    paddingHorizontal: 16,
     flexDirection: "row",
     alignItems: "center",
     marginTop: 32,
