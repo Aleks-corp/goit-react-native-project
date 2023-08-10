@@ -1,7 +1,7 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 import UserImg from "../../assets/Image/avatar.webp";
 
-export default function UserPostsComponent({ user }) {
+export default function PostsUserComponent({ user }) {
   const { name, surname, email, avatar } = user;
   return (
     <View style={styles.userContainer}>

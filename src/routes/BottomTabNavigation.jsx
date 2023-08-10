@@ -48,10 +48,16 @@ export default function BottomTabNavigation() {
           );
         },
         tabBarShowLabel: false,
-        tabBarStyle: {
-          paddingVertical: 9,
-          paddingHorizontal: 30,
-        },
+        tabBarStyle:
+          Platform.OS === "ios"
+            ? {
+                paddingVertical: 10,
+                paddingHorizontal: 30,
+              }
+            : {
+                height: 60,
+                paddingHorizontal: 30,
+              },
       })}
     >
       <Tabs.Screen

@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
+  Dimensions,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -21,7 +22,7 @@ export default function LoadPostComponent() {
   };
 
   return (
-    <>
+    <View style={styles.container}>
       <View>
         <View style={styles.loadImgWrapper}>
           {image ? (
@@ -114,11 +115,18 @@ export default function LoadPostComponent() {
           <Feather name="trash-2" size={24} color="#BDBDBD" />
         </TouchableOpacity>
       </View>
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "space-around",
+    paddingHorizontal: 16,
+    backgroundColor: "#ffffff",
+    width: Dimensions.get("window").width,
+  },
   loadImgWrapper: {
     justifyContent: "center",
     alignItems: "center",
@@ -147,7 +155,7 @@ const styles = StyleSheet.create({
   },
   loadText: {
     marginTop: 8,
-    marginBottom: 16,
+    marginBottom: 32,
     color: "#BDBDBD",
     fontFamily: "Roboto-Regular",
     fontSize: 16,
@@ -161,13 +169,13 @@ const styles = StyleSheet.create({
     borderColor: "#E8E8E8",
     backgroundColor: "#ffffff",
     borderBottomWidth: 1,
-    marginTop: 16,
   },
   inputActive: {
     borderColor: "#FF6C00",
   },
   inputLocation: {
     paddingLeft: 32,
+    marginTop: 16,
   },
   locationIcon: {
     position: "absolute",

@@ -1,55 +1,69 @@
-import { View, Image, Text, StyleSheet } from "react-native";
+import { View, Image, Text, StyleSheet, FlatList } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import PostsUserComponent from "./PostsUserComponent";
 
-export default function PostsComponent({ data }) {
-  return (
-    <View>
-      {data.map((item) => (
-        <View key={item.id} style={styles.postContainer}>
-          <View style={styles.postImgWrapper}>
-            <Image
-              style={styles.postImg}
-              source={{
-                uri: item.img,
-              }}
+export default function PostsComponent({ data, user }) {
+  const renderItem = ({ item }) => {
+    return (
+      <View key={item.id} style={styles.postContainer}>
+        <View style={styles.postImgWrapper}>
+          <Image
+            style={styles.postImg}
+            source={{
+              uri: item.img,
+            }}
+          />
+        </View>
+        <Text style={styles.postTitle}>{item.title}</Text>
+        <View style={styles.postDescription}>
+          <View style={styles.postComments}>
+            <Feather
+              name="message-circle"
+              size={24}
+              color={item.comments.length > 0 ? "#FF6C00" : "#afafaf"}
             />
+            <Text
+              style={
+                item.comments.length > 0
+                  ? [styles.postCommentsText, styles.postCommentsMoreZero]
+                  : styles.postCommentsText
+              }
+            >
+              {item.comments.length}
+            </Text>
           </View>
-          <Text style={styles.postTitle}>{item.title}</Text>
-          <View style={styles.postDescription}>
-            <View style={styles.postComments}>
-              <Feather
-                name="message-circle"
-                size={24}
-                color={item.comments.length > 0 ? "#FF6C00" : "#afafaf"}
-              />
-              <Text
-                style={
-                  item.comments.length > 0
-                    ? [styles.postCommentsText, styles.postCommentsMoreZero]
-                    : styles.postCommentsText
-                }
-              >
-                {item.comments.length}
+          {item.location && (
+            <View style={styles.postLocation}>
+              <Feather name="map-pin" size={24} color="#afafaf" />
+              <Text style={styles.postLocationText}>
+                {`${item.location.city} Region, ${item.location.country}`}
               </Text>
             </View>
-            {item.location && (
-              <View style={styles.postLocation}>
-                <Feather name="map-pin" size={24} color="#afafaf" />
-                <Text style={styles.postLocationText}>
-                  {`${item.location.city} Region, ${item.location.country}`}
-                </Text>
-              </View>
-            )}
-          </View>
+          )}
         </View>
-      ))}
-    </View>
+      </View>
+    );
+  };
+
+  return (
+    <FlatList
+      style={styles.container}
+      data={data}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id}
+      ListHeaderComponent={<PostsUserComponent user={user} />}
+    />
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 16,
+    backgroundColor: "#ffffff",
+  },
   postContainer: {
-    marginBottom: 34,
+    marginBottom: 32,
   },
   postImgWrapper: {
     width: "100%",

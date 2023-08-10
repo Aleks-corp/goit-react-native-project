@@ -1,73 +1,90 @@
-import { View, Image, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  FlatList,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
 import { Feather } from "@expo/vector-icons";
+import ProfileUserComponent from "./ProfileUserComponent";
 
-export default function ProfilePostsComponent({ data }) {
-  return (
-    <View style={styles.postsContainer}>
-      {data.map((item) => (
-        <View key={item.id} style={styles.postContainer}>
-          <View style={styles.postImgWrapper}>
-            <Image
-              style={styles.postImg}
-              source={{
-                uri: item.img,
-              }}
+export default function ProfilePostsComponent({ data, user }) {
+  const renderItem = ({ item }) => {
+    return (
+      <View key={item.id} style={styles.postContainer}>
+        <View style={styles.postImgWrapper}>
+          <Image
+            style={styles.postImg}
+            source={{
+              uri: item.img,
+            }}
+          />
+        </View>
+        <Text style={styles.postTitle}>{item.title}</Text>
+        <View style={styles.postDescription}>
+          <View style={styles.postComments}>
+            <Feather
+              name="message-circle"
+              size={24}
+              color={item.comments.length > 0 ? "#FF6C00" : "#afafaf"}
             />
+            <Text
+              style={
+                item.comments.length > 0
+                  ? [styles.postCommentsText, styles.postCommentsMoreZero]
+                  : styles.postCommentsText
+              }
+            >
+              {item.comments.length}
+            </Text>
+            <Feather
+              name="thumbs-up"
+              size={24}
+              color={item.likes > 0 ? "#FF6C00" : "#afafaf"}
+              style={styles.postLikes}
+            />
+            <Text
+              style={
+                item.likes > 0
+                  ? [styles.postCommentsText, styles.postCommentsMoreZero]
+                  : styles.postCommentsText
+              }
+            >
+              {item.likes}
+            </Text>
           </View>
-          <Text style={styles.postTitle}>{item.title}</Text>
-          <View style={styles.postDescription}>
-            <View style={styles.postComments}>
-              <Feather
-                name="message-circle"
-                size={24}
-                color={item.comments.length > 0 ? "#FF6C00" : "#afafaf"}
-              />
-              <Text
-                style={
-                  item.comments.length > 0
-                    ? [styles.postCommentsText, styles.postCommentsMoreZero]
-                    : styles.postCommentsText
-                }
-              >
-                {item.comments.length}
-              </Text>
-              <Feather
-                name="thumbs-up"
-                size={24}
-                color={item.likes > 0 ? "#FF6C00" : "#afafaf"}
-                style={styles.postLikes}
-              />
-              <Text
-                style={
-                  item.likes > 0
-                    ? [styles.postCommentsText, styles.postCommentsMoreZero]
-                    : styles.postCommentsText
-                }
-              >
-                {item.likes}
+          {item.location && (
+            <View style={styles.postLocation}>
+              <Feather name="map-pin" size={24} color="#afafaf" />
+              <Text style={styles.postLocationText}>
+                {item.location.country}
               </Text>
             </View>
-            {item.location && (
-              <View style={styles.postLocation}>
-                <Feather name="map-pin" size={24} color="#afafaf" />
-                <Text style={styles.postLocationText}>
-                  {item.location.country}
-                </Text>
-              </View>
-            )}
-          </View>
+          )}
         </View>
-      ))}
-    </View>
+      </View>
+    );
+  };
+  return (
+    <FlatList
+      style={styles.postsContainer}
+      data={data}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id}
+      ListHeaderComponent={<ProfileUserComponent user={user} />}
+    />
   );
 }
 
 const styles = StyleSheet.create({
   postsContainer: {
-    marginBottom: 64,
+    marginBottom: Dimensions.get("window").height / 13,
   },
   postContainer: {
-    marginBottom: 34,
+    backgroundColor: "#ffffff",
+    paddingBottom: 32,
+    paddingHorizontal: 16,
   },
   postImgWrapper: {
     width: "100%",
