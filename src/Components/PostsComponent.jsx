@@ -1,7 +1,7 @@
 import { StyleSheet, FlatList } from "react-native";
 
 import PostsUserComponent from "./PostsUserComponent";
-import ItemRenderComponent from "./ItemRenderComponent";
+import PostRenderComponent from "./PostRenderComponent";
 
 export default function PostsComponent({ data, user }) {
   return (
@@ -9,7 +9,7 @@ export default function PostsComponent({ data, user }) {
       style={styles.container}
       showsVerticalScrollIndicator={false}
       data={data}
-      renderItem={({ item }) => ItemRenderComponent({ item })}
+      renderItem={({ item }) => PostRenderComponent({ item })}
       keyExtractor={(item) => item.id}
       ListHeaderComponent={<PostsUserComponent user={user} />}
     />

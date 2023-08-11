@@ -1,7 +1,7 @@
-import { View, Image, Text, StyleSheet } from "react-native";
+import { View, Image, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-export default function ItemRenderComponent({ item }) {
+export default function PostRenderComponent({ item }) {
   return (
     <View key={item.id} style={styles.postContainer}>
       <View style={styles.postImgWrapper}>
@@ -29,12 +29,14 @@ export default function ItemRenderComponent({ item }) {
           >
             {item.comments.length}
           </Text>
-          <Feather
-            name="thumbs-up"
-            size={24}
-            color={item.likes > 0 ? "#FF6C00" : "#afafaf"}
-            style={styles.postLikes}
-          />
+          <TouchableOpacity onPress={() => {}}>
+            <Feather
+              name="thumbs-up"
+              size={24}
+              color={item.likes > 0 ? "#FF6C00" : "#afafaf"}
+              style={styles.postLikes}
+            />
+          </TouchableOpacity>
           <Text
             style={
               item.likes > 0

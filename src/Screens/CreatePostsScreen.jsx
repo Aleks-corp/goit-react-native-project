@@ -1,13 +1,13 @@
 import { View, StyleSheet } from "react-native";
 
 import TouchKeybordContainer from "../Components/TouchKeybordContainer.jsx";
-import LoadPostComponent from "../Components/LoadPostComponent.jsx";
+import NewPostComponent from "../Components/NewPostComponent.jsx";
 
 export default function CreatePostsScreen() {
   return (
     <View style={styles.container}>
       <TouchKeybordContainer>
-        <LoadPostComponent />
+        <NewPostComponent />
       </TouchKeybordContainer>
     </View>
   );
