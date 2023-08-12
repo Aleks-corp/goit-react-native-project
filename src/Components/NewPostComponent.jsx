@@ -1,7 +1,7 @@
 import { View, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import twoBtnAlert from "../helpers/twoBtnAlert";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NewPostCameraComponent from "./NewPostCameraComponent";
 import NewPostFormComponent from "./NewPostFormComponent";
 import { useNavigation } from "@react-navigation/native";
@@ -39,7 +39,7 @@ export default function NewPostComponent() {
       longitude: locationCoord.coords.longitude,
     };
     console.log(
-      `Title:${title}, Location:${location}, Coord:${coords}, ImagePath:${image}`
+      `Title:${title}, Location:${location}, Coord:${coords.latitude} && ${coords.longitude}, ImagePath:${image}`
     );
     clearNewPost();
     navigation.navigate("PostsScreen");

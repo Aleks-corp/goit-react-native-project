@@ -9,9 +9,9 @@ const data = [
       name: "Tatooine, New Zealand",
       city: "Tatooine",
       country: "New Zealand",
-      position: {
-        latitude: 45.5017,
-        longitude: 73.5673,
+      coords: {
+        latitude: 46.4705,
+        longitude: 30.7527,
       },
     },
   },
@@ -25,7 +25,7 @@ const data = [
       name: "KillKenny, Ireland",
       city: "KillKenny",
       country: "Ireland",
-      position: {
+      coords: {
         latitude: 45.5017,
         longitude: 73.5673,
       },
@@ -41,9 +41,9 @@ const data = [
       name: "Odesa, Ukraine",
       city: "Odesa",
       country: "Ukraine",
-      position: {
-        latitude: 45.5017,
-        longitude: 73.5673,
+      coords: {
+        latitude: 37.4220936,
+        longitude: -122.083922,
       },
     },
   },

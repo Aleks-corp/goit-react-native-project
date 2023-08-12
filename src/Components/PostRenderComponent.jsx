@@ -1,7 +1,7 @@
 import { View, Image, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-export default function PostRenderComponent({ item }) {
+export default function PostRenderComponent({ item, navigation }) {
   return (
     <View key={item.id} style={styles.postContainer}>
       <View style={styles.postImgWrapper}>
@@ -49,7 +49,15 @@ export default function PostRenderComponent({ item }) {
         </View>
         {item.location && (
           <View style={styles.postLocation}>
-            <Feather name="map-pin" size={24} color="#afafaf" />
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("MapScreen", {
+                  coords: item.location.coords,
+                });
+              }}
+            >
+              <Feather name="map-pin" size={24} color="#afafaf" />
+            </TouchableOpacity>
             <Text style={styles.postLocationText}>{item.location.country}</Text>
           </View>
         )}

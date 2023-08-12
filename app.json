@@ -13,17 +13,38 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aleks-corp.pictureposterproject",
+      "config": {
+        "googleMapsApiKey": "AIzaSyBZhlStXZEEtPrOYhYc0bSnLRuJiASehVk"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "package": "com.aleks_corp.pictureposterproject",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBZhlStXZEEtPrOYhYc0bSnLRuJiASehVk"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d79a53b2-a4f0-4f56-a5aa-292e198fc14c"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/d79a53b2-a4f0-4f56-a5aa-292e198fc14c"
     }
   }
 }
