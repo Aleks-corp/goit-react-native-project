@@ -5,6 +5,7 @@ import { useState } from "react";
 import NewPostCameraComponent from "./NewPostCameraComponent";
 import NewPostFormComponent from "./NewPostFormComponent";
 import { useNavigation } from "@react-navigation/native";
+import * as Location from "expo-location";
 
 export default function NewPostComponent() {
   const navigation = useNavigation();
@@ -12,14 +13,34 @@ export default function NewPostComponent() {
   const [location, setLocation] = useState("");
   const [image, setImage] = useState("");
 
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+    })();
+  }, []);
+
   const clearNewPost = () => {
     setTitle("");
     setLocation("");
     setImage("");
   };
 
-  const onSubmit = (e) => {
-    console.log(`${title} ${location} ${image}`);
+  const onSubmit = async (e) => {
+    const locationCoord = await Location.getCurrentPositionAsync({});
+    console.log("locationCoord:", locationCoord);
+    const coords = {
+      latitude: locationCoord.coords.latitude,
+      longitude: locationCoord.coords.longitude,
+    };
+    console.log(
+      `Title:${title}, Location:${location}, Coord:${coords}, ImagePath:${image}`
+    );
     clearNewPost();
     navigation.navigate("PostsScreen");
   };

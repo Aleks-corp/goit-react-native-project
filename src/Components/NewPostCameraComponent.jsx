@@ -52,9 +52,13 @@ export default function NewPostCameraComponent({ image, setImage }) {
                 onPress={async () => {
                   if (cameraRef) {
                     const { uri } = await cameraRef.takePictureAsync();
-                    // save to Library in Phone
+                    /* SAVE to Library in Phone */
                     // await MediaLibrary.createAssetAsync(uri);
                     setImage(uri);
+                    /* FOR ANDROID SIMULATOR ONLY TO CHECK*/
+                    // const result = await ImagePicker.launchCameraAsync();
+                    // const uri = result.assets[0].uri;
+                    // setImage(uri);
                   }
                 }}
               >
@@ -121,7 +125,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     height: 240,
-    borderRadius: 8,
+    borderRadius: 18,
     overflow: "hidden",
   },
   loadIconWrapper: {
