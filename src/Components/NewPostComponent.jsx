@@ -12,6 +12,7 @@ export default function NewPostComponent() {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [image, setImage] = useState("");
+  const [locationCoords, setLocationCoords] = useState(null);
 
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -22,6 +23,12 @@ export default function NewPostComponent() {
         setErrorMsg("Permission to access location was denied");
         return;
       }
+      const locationCoord = await Location.getCurrentPositionAsync({});
+      const coords = {
+        latitude: locationCoord.coords.latitude,
+        longitude: locationCoord.coords.longitude,
+      };
+      setLocationCoords(coords);
     })();
   }, []);
 
@@ -32,17 +39,27 @@ export default function NewPostComponent() {
   };
 
   const onSubmit = async (e) => {
-    const locationCoord = await Location.getCurrentPositionAsync({});
-    console.log("locationCoord:", locationCoord);
-    const coords = {
-      latitude: locationCoord.coords.latitude,
-      longitude: locationCoord.coords.longitude,
+    const submit = () => {
+      console.log(
+        `Title:${title}, Location:${location}, Latitude:${locationCoords.latitude} Longitude:${locationCoords.longitude}, ImagePath:${image}`
+      );
+      clearNewPost();
+      navigation.navigate("PostsScreen");
     };
-    console.log(
-      `Title:${title}, Location:${location}, Coord:${coords.latitude} && ${coords.longitude}, ImagePath:${image}`
-    );
-    clearNewPost();
-    navigation.navigate("PostsScreen");
+    errorMsg
+      ? twoBtnAlert(
+          () => {
+            console.log(
+              `Title:${title}, Location:${location}, ImagePath:${image}`
+            );
+            clearNewPost();
+            navigation.navigate("PostsScreen");
+          },
+          "Continue",
+          "У доступі до місцезнаходження відмовлено",
+          "Продовжити без геопозиції"
+        )
+      : submit();
   };
   return (
     <View style={styles.container}>

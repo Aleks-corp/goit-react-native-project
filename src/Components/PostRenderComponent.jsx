@@ -15,11 +15,19 @@ export default function PostRenderComponent({ item, navigation }) {
       <Text style={styles.postTitle}>{item.title}</Text>
       <View style={styles.postDescription}>
         <View style={styles.postComments}>
-          <Feather
-            name="message-circle"
-            size={24}
-            color={item.comments.length > 0 ? "#FF6C00" : "#afafaf"}
-          />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("CommentsScreen", {
+                id: item.id,
+              });
+            }}
+          >
+            <Feather
+              name="message-circle"
+              size={24}
+              color={item.comments.length > 0 ? "#FF6C00" : "#afafaf"}
+            />
+          </TouchableOpacity>
           <Text
             style={
               item.comments.length > 0
@@ -29,6 +37,7 @@ export default function PostRenderComponent({ item, navigation }) {
           >
             {item.comments.length}
           </Text>
+
           <TouchableOpacity onPress={() => {}}>
             <Feather
               name="thumbs-up"

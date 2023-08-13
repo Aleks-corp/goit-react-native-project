@@ -1,8 +1,13 @@
 import { Alert } from "react-native";
-const twoBtnAlert = (onPressOk) =>
-  Alert.alert("Ви впевнені?", "Очистити всі поля", [
+const twoBtnAlert = (
+  onPressOk,
+  TextOK = "OK",
+  AlertTitleMessage = "Ви впевнені?",
+  AlertMessage = "Очистити всі поля"
+) =>
+  Alert.alert(AlertTitleMessage, AlertMessage, [
     {
-      text: "OK",
+      text: TextOK,
       onPress: onPressOk,
     },
     {
