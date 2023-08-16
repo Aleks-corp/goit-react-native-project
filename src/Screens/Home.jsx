@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React from "react";
+import { View, StyleSheet, Text } from "react-native";
 
 export default function Home() {
   // function MyTabBar({ state, descriptors, navigation }) {
@@ -95,22 +95,26 @@ export default function Home() {
   //   );
   // }
 
-  return <Text>Home</Text>;
+  return (
+    <View style={styles.container}>
+      <Text>Home</Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   active: {
     width: 70,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#FF6C00',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#FF6C00",
+    justifyContent: "center",
+    alignItems: "center",
   },
   goBackButton: {
     marginLeft: 16,
