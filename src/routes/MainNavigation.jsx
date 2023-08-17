@@ -8,7 +8,7 @@ import LoginScreen from "../../src/Screens/LoginScreen.jsx";
 import RegistrationScreen from "../../src/Screens/RegistrationScreen.jsx";
 import MapScreen from "../../src/Screens/MapScreen.jsx";
 import CommentsScreen from "../../src/Screens/CommentsScreen.jsx";
-import goBackBtn from "../Components/goBackBtn.jsx";
+import GoBackBtn from "../Components/GoBackBtn.jsx";
 
 const MainStack = createStackNavigator();
 
@@ -31,7 +31,7 @@ export default function MainNavigation() {
           title: "Мапа",
           headerShown: true,
           gesturesEnabled: true,
-          headerLeft: goBackBtn,
+          headerLeft: GoBackBtn,
         }}
       />
       <MainStack.Screen
@@ -41,7 +41,7 @@ export default function MainNavigation() {
           title: "Коментарі",
           headerShown: true,
           gesturesEnabled: true,
-          headerLeft: goBackBtn,
+          headerLeft: GoBackBtn,
         }}
       />
     </MainStack.Navigator>

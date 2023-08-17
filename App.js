@@ -17,7 +17,9 @@ export default function App() {
   }
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar
+        barStyle={Platform.OS === "ios" ? "dark-content" : "default"}
+      />
       <NavigationContainer>
         <MainNavigation />
       </NavigationContainer>

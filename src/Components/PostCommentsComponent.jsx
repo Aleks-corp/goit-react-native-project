@@ -4,7 +4,6 @@ import {
   TextInput,
   FlatList,
   TouchableOpacity,
-  Text,
   StyleSheet,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
@@ -26,56 +25,60 @@ export default function PostCommentsComponent({ id }) {
     console.log("comment:", newComment);
   };
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
-      keyboardVerticalOffset="80"
-    >
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={comments}
-        renderItem={({ item, index }) =>
-          CommentRenderComponent({ item, index })
-        }
-        keyExtractor={(item, index) => index}
-        ListHeaderComponent={
-          <View style={styles.ListHeaderWrapper}>
-            <Image
-              style={styles.postImg}
-              source={{
-                uri: img,
-              }}
-            />
-          </View>
-        }
-      />
-      <View style={styles.ListFooterWrapper}>
-        <TextInput
-          style={inputFocus ? [styles.input, styles.inputActive] : styles.input}
-          onChangeText={(e) => setNewComment(e)}
-          value={newComment}
-          placeholder="Коментувати..."
-          maxLength={200}
-          onFocus={() => {
-            setInputFocus("comment");
-          }}
-          onBlur={() => {
-            setInputFocus("");
-          }}
-        />
-        <TouchableOpacity
-          style={
-            !newComment
-              ? styles.btnContainer
-              : [styles.btnContainer, styles.btnContainerActive]
+    <View style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.containerKeyboard}
+        keyboardVerticalOffset="80"
+      >
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={comments}
+          renderItem={({ item, index }) =>
+            CommentRenderComponent({ item, index })
           }
-          disabled={!newComment}
-          onPress={onSubmit}
-        >
-          <Feather name="arrow-up" size={24} color="#ffffff" />
-        </TouchableOpacity>
-      </View>
-    </KeyboardAvoidingView>
+          keyExtractor={(item, index) => index}
+          ListHeaderComponent={
+            <View style={styles.ListHeaderWrapper}>
+              <Image
+                style={styles.postImg}
+                source={{
+                  uri: img,
+                }}
+              />
+            </View>
+          }
+        />
+        <View style={styles.ListFooterWrapper}>
+          <TextInput
+            style={
+              inputFocus ? [styles.input, styles.inputActive] : styles.input
+            }
+            onChangeText={(e) => setNewComment(e)}
+            value={newComment}
+            placeholder="Коментувати..."
+            maxLength={200}
+            onFocus={() => {
+              setInputFocus("comment");
+            }}
+            onBlur={() => {
+              setInputFocus("");
+            }}
+          />
+          <TouchableOpacity
+            style={
+              !newComment
+                ? styles.btnContainer
+                : [styles.btnContainer, styles.btnContainerActive]
+            }
+            disabled={!newComment}
+            onPress={onSubmit}
+          >
+            <Feather name="arrow-up" size={24} color="#ffffff" />
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+    </View>
   );
 }
 
@@ -85,6 +88,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 32,
     paddingBottom: 16,
+  },
+  containerKeyboard: {
+    flex: 1,
   },
   ListHeaderWrapper: {
     width: "100%",

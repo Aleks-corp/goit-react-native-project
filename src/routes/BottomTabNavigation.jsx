@@ -6,7 +6,7 @@ import PostsScreen from "../Screens/PostsScreen.jsx";
 import ProfileScreen from "../Screens/ProfileScreen.jsx";
 import CreatePostsScreen from "../Screens/CreatePostsScreen.jsx";
 import { useNavigation } from "@react-navigation/native";
-import goBackBtn from "../Components/goBackBtn.jsx";
+import GoBackBtn from "../Components/GoBackBtn.jsx";
 
 export default function BottomTabNavigation() {
   const navigation = useNavigation();
@@ -106,7 +106,7 @@ export default function BottomTabNavigation() {
             fontSize: 17,
             color: "#212121",
           },
-          headerLeft: goBackBtn,
+          headerLeft: GoBackBtn,
           tabBarStyle: { display: "none" },
         }}
       />
