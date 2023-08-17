@@ -115,6 +115,7 @@ export default function Registration() {
         onChangeText={(e) => setPassword(e)}
         value={password}
         autoComplete="password"
+        autoCapitalize="none"
         placeholder="Пароль"
         keyboardType="default"
         onFocus={() => {

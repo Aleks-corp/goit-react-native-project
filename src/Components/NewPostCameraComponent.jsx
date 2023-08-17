@@ -1,32 +1,38 @@
-import { View, Image, TouchableOpacity, Text, StyleSheet } from "react-native";
-import { useEffect, useState } from "react";
-import { Camera } from "expo-camera";
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
+import { useState } from "react";
+import { Camera, CameraType } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 export default function NewPostCameraComponent({ image, setImage }) {
-  const [hasPermission, setHasPermission] = useState(null);
+  const [loadingTakePhoto, setLoadingTakePhoto] = useState(false);
   const [cameraRef, setCameraRef] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
+  const [type, setType] = useState(CameraType.back);
+  const [permissionCamera, requestPermissionCamera] =
+    Camera.useCameraPermissions();
+  const [permissionLibrary, requestPermissionLibrary] =
+    MediaLibrary.usePermissions();
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      await MediaLibrary.requestPermissionsAsync();
-      setHasPermission(status === "granted");
-    })();
-  }, []);
+  if (!permissionCamera || !permissionLibrary) {
+    return <ActivityIndicator size="large" color="#FF6C00" />;
+  }
 
   return (
     <>
       <View style={styles.loadImgWrapper}>
-        {hasPermission === false ? (
+        {!permissionCamera.granted ? (
           <TouchableOpacity
             onPress={async () => {
-              const { status } = await Camera.requestCameraPermissionsAsync();
-              await MediaLibrary.requestPermissionsAsync();
-              setHasPermission(status === "granted");
+              requestPermissionCamera();
             }}
           >
             <Text style={styles.alertText}>No access to camera. </Text>
@@ -35,22 +41,35 @@ export default function NewPostCameraComponent({ image, setImage }) {
             </Text>
           </TouchableOpacity>
         ) : image ? (
-          <Image
-            style={styles.loadImg}
-            source={{
-              uri: image,
-            }}
-          />
+          <View style={styles.loadImgWrapper}>
+            <Image
+              style={styles.loadImg}
+              source={{
+                uri: image,
+              }}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                setImage("");
+              }}
+            >
+              <View style={styles.delIconWrapper}>
+                <Feather name="trash-2" size={24} color="#BDBDBD" />
+              </View>
+            </TouchableOpacity>
+          </View>
         ) : (
           <Camera
             style={styles.loadCameraWrapper}
             type={type}
             ref={setCameraRef}
           >
-            <View style={styles.loadIconWrapper}>
-              <TouchableOpacity
-                onPress={async () => {
-                  if (cameraRef) {
+            <TouchableOpacity
+              disabled={loadingTakePhoto}
+              onPress={async () => {
+                if (cameraRef) {
+                  try {
+                    setLoadingTakePhoto(true);
                     const { uri } = await cameraRef.takePictureAsync();
                     /* SAVE to Library in Phone */
                     // await MediaLibrary.createAssetAsync(uri);
@@ -59,28 +78,45 @@ export default function NewPostCameraComponent({ image, setImage }) {
                     // const result = await ImagePicker.launchCameraAsync();
                     // const uri = result.assets[0].uri;
                     // setImage(uri);
+                    setLoadingTakePhoto(false);
+                  } catch (error) {
+                    console.log(error.message);
+                    setLoadingTakePhoto(false);
                   }
-                }}
-              >
-                <MaterialIcons name="camera-alt" size={24} color="#BDBDBD" />
-              </TouchableOpacity>
-            </View>
+                }
+              }}
+            >
+              <View style={styles.loadIconWrapper}>
+                {loadingTakePhoto ? (
+                  <ActivityIndicator size="small" color="#FF6C00" />
+                ) : (
+                  <MaterialIcons name="camera-alt" size={24} color="#BDBDBD" />
+                )}
+              </View>
+            </TouchableOpacity>
           </Camera>
         )}
       </View>
       <View style={styles.cameraWrapper}>
         <TouchableOpacity
+          disabled={loadingTakePhoto}
           onPress={async () => {
-            if (hasPermission === false) {
-              return;
+            if (!permissionLibrary.granted) {
+              requestPermissionLibrary();
             }
-            const imgData = await ImagePicker.launchImageLibraryAsync({
-              // base64: true,
-              quality: 0.3,
-            });
-            console.log("imgData:", imgData);
-            if (!imgData.canceled) {
-              setImage(imgData.assets[0].uri);
+            try {
+              setLoadingTakePhoto(true);
+              const imgData = await ImagePicker.launchImageLibraryAsync({
+                // base64: true,
+                quality: 0.3,
+              });
+              if (!imgData.canceled) {
+                setImage(imgData.assets[0].uri);
+              }
+              setLoadingTakePhoto(false);
+            } catch (error) {
+              console.log(error.message);
+              setLoadingTakePhoto(false);
             }
           }}
         >
@@ -88,10 +124,8 @@ export default function NewPostCameraComponent({ image, setImage }) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            setType(
-              type === Camera.Constants.Type.back
-                ? Camera.Constants.Type.front
-                : Camera.Constants.Type.back
+            setType((current) =>
+              current === CameraType.back ? CameraType.front : CameraType.back
             );
           }}
         >
@@ -104,6 +138,7 @@ export default function NewPostCameraComponent({ image, setImage }) {
 
 const styles = StyleSheet.create({
   loadImgWrapper: {
+    position: "relative",
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
@@ -113,6 +148,18 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderColor: "#E8E8E8",
     backgroundColor: "#F6F6F6",
+  },
+
+  delIconWrapper: {
+    position: "absolute",
+    top: -45,
+    transform: [{ translateX: -20 }],
+    justifyContent: "center",
+    alignItems: "center",
+    width: 40,
+    height: 40,
+    borderRadius: 30,
+    backgroundColor: "#E8E8E8",
   },
   alertText: {
     textAlign: "center",

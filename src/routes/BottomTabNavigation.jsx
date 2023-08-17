@@ -48,6 +48,7 @@ export default function BottomTabNavigation() {
             </View>
           );
         },
+        headerTitleAlign: "center",
         unmountOnBlur: true,
         tabBarShowLabel: false,
         tabBarStyle:

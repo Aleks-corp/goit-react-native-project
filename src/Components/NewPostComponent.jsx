@@ -13,22 +13,25 @@ export default function NewPostComponent() {
   const [location, setLocation] = useState("");
   const [image, setImage] = useState("");
   const [locationCoords, setLocationCoords] = useState(null);
-
   const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
     (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
+      try {
+        const permission = await Location.requestForegroundPermissionsAsync();
+        if (!permission.granted) {
+          setErrorMsg("Permission to access location was denied");
+          return;
+        }
+        const locationCoord = await Location.getCurrentPositionAsync({});
+        const coords = {
+          latitude: locationCoord.coords.latitude,
+          longitude: locationCoord.coords.longitude,
+        };
+        setLocationCoords(coords);
+      } catch (error) {
         setErrorMsg("Permission to access location was denied");
-        return;
       }
-      const locationCoord = await Location.getCurrentPositionAsync({});
-      const coords = {
-        latitude: locationCoord.coords.latitude,
-        longitude: locationCoord.coords.longitude,
-      };
-      setLocationCoords(coords);
     })();
   }, []);
 
@@ -38,15 +41,16 @@ export default function NewPostComponent() {
     setImage("");
   };
 
+  const submit = () => {
+    console.log(
+      `Title:${title}, Location:${location}, Latitude:${locationCoords.latitude} Longitude:${locationCoords.longitude}, ImagePath:${image}`
+    );
+    clearNewPost();
+    navigation.navigate("PostsScreen");
+  };
+
   const onSubmit = async (e) => {
-    const submit = () => {
-      console.log(
-        `Title:${title}, Location:${location}, Latitude:${locationCoords.latitude} Longitude:${locationCoords.longitude}, ImagePath:${image}`
-      );
-      clearNewPost();
-      navigation.navigate("PostsScreen");
-    };
-    errorMsg
+    errorMsg || !locationCoords
       ? twoBtnAlert(
           () => {
             console.log(

@@ -16,6 +16,7 @@ export default function PostRenderComponent({ item, navigation }) {
       <View style={styles.postDescription}>
         <View style={styles.postComments}>
           <TouchableOpacity
+            style={styles.postComments}
             onPress={() => {
               navigation.navigate("CommentsScreen", {
                 id: item.id,
@@ -27,38 +28,40 @@ export default function PostRenderComponent({ item, navigation }) {
               size={24}
               color={item.comments.length > 0 ? "#FF6C00" : "#afafaf"}
             />
-          </TouchableOpacity>
-          <Text
-            style={
-              item.comments.length > 0
-                ? [styles.postCommentsText, styles.postCommentsMoreZero]
-                : styles.postCommentsText
-            }
-          >
-            {item.comments.length}
-          </Text>
 
-          <TouchableOpacity onPress={() => {}}>
+            <Text
+              style={
+                item.comments.length > 0
+                  ? [styles.postCommentsText, styles.postCommentsMoreZero]
+                  : styles.postCommentsText
+              }
+            >
+              {item.comments.length}
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.postComments} onPress={() => {}}>
             <Feather
               name="thumbs-up"
               size={24}
               color={item.likes > 0 ? "#FF6C00" : "#afafaf"}
               style={styles.postLikes}
             />
+            <Text
+              style={
+                item.likes > 0
+                  ? [styles.postCommentsText, styles.postCommentsMoreZero]
+                  : styles.postCommentsText
+              }
+            >
+              {item.likes}
+            </Text>
           </TouchableOpacity>
-          <Text
-            style={
-              item.likes > 0
-                ? [styles.postCommentsText, styles.postCommentsMoreZero]
-                : styles.postCommentsText
-            }
-          >
-            {item.likes}
-          </Text>
         </View>
         {item.location && (
           <View style={styles.postLocation}>
             <TouchableOpacity
+              style={styles.postComments}
               onPress={() => {
                 navigation.navigate("MapScreen", {
                   coords: item.location.coords,
@@ -66,8 +69,11 @@ export default function PostRenderComponent({ item, navigation }) {
               }}
             >
               <Feather name="map-pin" size={24} color="#afafaf" />
+
+              <Text style={styles.postLocationText}>
+                {item.location.country}
+              </Text>
             </TouchableOpacity>
-            <Text style={styles.postLocationText}>{item.location.country}</Text>
           </View>
         )}
       </View>

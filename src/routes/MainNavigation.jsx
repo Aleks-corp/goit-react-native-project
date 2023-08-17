@@ -19,6 +19,7 @@ export default function MainNavigation() {
       screenOptions={{
         headerShown: false,
         gesturesEnabled: false,
+        headerTitleAlign: "center",
       }}
     >
       <MainStack.Screen name="Registration" component={RegistrationScreen} />
@@ -30,7 +31,6 @@ export default function MainNavigation() {
         options={{
           title: "Мапа",
           headerShown: true,
-          gesturesEnabled: true,
           headerLeft: GoBackBtn,
         }}
       />
@@ -40,7 +40,6 @@ export default function MainNavigation() {
         options={{
           title: "Коментарі",
           headerShown: true,
-          gesturesEnabled: true,
           headerLeft: GoBackBtn,
         }}
       />
